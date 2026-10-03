@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connected — Manager By KDH</title>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; display: flex; align-items: center; justify-content: center; min-height: 90vh; margin: 0; background: #f7f7f7; }
+  .card { background: #fff; border-radius: 12px; padding: 2.5rem; max-width: 520px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  h1 { font-size: 1.4rem; margin-bottom: .5rem; }
+  p { color: #555; }
+  code { display: block; margin-top: 1rem; padding: .75rem; background: #f0f0f0; border-radius: 8px; word-break: break-all; font-size: .85rem; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>Connecting…</h1>
+  <p id="msg">Finishing TikTok authorization.</p>
+  <code id="code" style="display:none"></code>
+</div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const code = params.get('code');
+  const err = params.get('error');
+  if (code) {
+    document.querySelector('h1').textContent = 'TikTok connected!';
+    document.getElementById('msg').textContent = 'Your TikTok account is connected to Manager By KDH. You can close this page.';
+    const el = document.getElementById('code');
+    el.style.display = 'block';
+    el.textContent = 'Authorization code: ' + code;
+  } else if (err) {
+    document.querySelector('h1').textContent = 'Connection failed';
+    document.getElementById('msg').textContent = 'TikTok returned an error: ' + err + ' (' + (params.get('error_description') || '') + ')';
+  }
+</script>
+</body>
+</html>
